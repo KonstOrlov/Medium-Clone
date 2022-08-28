@@ -37,7 +37,9 @@
     methods:{
       onSubmit() {
         console.log('submitted form');
-        this.$store.dispatch('register');
+        this.$store
+            .dispatch('register', {email: "kstqwerty2@vue.com", username: "nameVue2 ", password: "123456789 " })
+            .then(user => console.log('successfully register user', user));
       }
     }
   }
