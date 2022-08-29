@@ -10,13 +10,13 @@
           Validation ERRORS
           <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
-              <input type="text" class="form-control form-control-lg" placeholder="Username"/>
+              <input type="text" class="form-control form-control-lg" placeholder="Username" v-model = "username"/>
             </fieldset>
             <fieldset class="form-group">
-              <input type="text" class="form-control form-control-lg" placeholder="Email"/>
+              <input type="text" class="form-control form-control-lg" placeholder="Email" v-model = "email"/>
             </fieldset>
             <fieldset class="form-group">
-              <input type="password" class="form-control form-control-lg" placeholder="Password"/>
+              <input type="password" class="form-control form-control-lg" placeholder="Password" v-model = "password"/>
             </fieldset>
             <button :disabled="isSubmitting" class="btn btn-lg btn-primary pull-xs-right">Sign Up</button>
           </form>
@@ -29,6 +29,13 @@
 <script>
   export default {
     name: 'McvRegister',
+    data() {
+      return {
+        email: '',
+        username: '',
+        password: ''
+      }
+    },
     computed: {
       isSubmitting() {
         return this.$store.state.auth.isSubmitting
@@ -38,8 +45,15 @@
       onSubmit() {
         console.log('submitted form');
         this.$store
-            .dispatch('register', {email: "kstqwerty2@vue.com", username: "nameVue2 ", password: "123456789 " })
-            .then(user => console.log('successfully register user', user));
+            .dispatch('register', {
+              email: this.email,
+              username: this.username,
+              password: this.password
+            })
+            .then(user => {
+              console.log('successfully register user', user);
+              this.$router.push({name: 'home'});
+            });
       }
     }
   }
