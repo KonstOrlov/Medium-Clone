@@ -28,6 +28,7 @@
 
 <script>
   import McvValidationErrors from '@/components/ValidationErrors';
+
   export default {
     name: 'McvRegister',
     components: {McvValidationErrors},
@@ -51,15 +52,13 @@
     },
     methods:{
       onSubmit() {
-        console.log('submitted form');
         this.$store
             .dispatch('register', {
               email: this.email,
               username: this.username,
               password: this.password
             })
-            .then(user => {
-              console.log('successfully register user', user);
+            .then(() => {
               this.$router.push({name: 'home'});
             });
       }
