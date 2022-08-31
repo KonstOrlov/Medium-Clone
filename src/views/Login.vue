@@ -38,11 +38,12 @@
         password:''
       }
     },
-    computed:
-      mapState({
+    computed: {
+      ...mapState({
         isSubmitting: state=> state.auth.isSubmitting,
         validationErrors: state => state.auth.validationErrors
       }),
+    },
     methods:{
       onSubmit() {
         this.$store
