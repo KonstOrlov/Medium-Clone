@@ -5,7 +5,7 @@
         <div class="col-md-6 offset-md-3 col-xs-12">
           <h1 class="text-xs-center">Sign Up</h1>
           <p class="text-xs-center">
-            <router-link to="{name: 'login'}">Need an account?</router-link>
+            <router-link to='login'>Have an account?</router-link>
           </p>
           <mcv-validation-errors v-if="validationErrors" :validation-errors = "validationErrors" />
           <form @submit.prevent="onSubmit">
@@ -29,6 +29,7 @@
 <script>
   import McvValidationErrors from '@/components/ValidationErrors';
   import {actionTypes} from "@/store/Modules/auth.js";
+  import {mapState} from "vuex";
 
   export default {
     name: 'McvRegister',
@@ -43,14 +44,11 @@
         password: ''
       }
     },
-    computed: {
-      isSubmitting() {
-        return this.$store.state.auth.isSubmitting
-      },
-      validationErrors() {
-        return this.$store.state.auth.validationErrors
-      }
-    },
+    computed:
+        mapState({
+          isSubmitting: state=> state.auth.isSubmitting,
+          validationErrors: state => state.auth.validationErrors
+        }),
     methods:{
       onSubmit() {
         this.$store
