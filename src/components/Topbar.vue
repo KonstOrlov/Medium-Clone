@@ -18,7 +18,7 @@
           </li>
           <li class="nav-item">
             <router-link :to="{name: 'settings'}" class="nav-link" active-class="active">
-              <i class="ion-compose"></i> &nbsp; Settings
+              <i class="ion-gear-a"></i> &nbsp; Settings
             </router-link>
           </li>
           <li class="nav-item">
