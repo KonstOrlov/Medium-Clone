@@ -5,5 +5,5 @@ const getFeed = apiUrl => {
 }
 
 export default {
-  getFeed,
-}
+  getFeed
+} 

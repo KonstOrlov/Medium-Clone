@@ -48,7 +48,7 @@ const getters = {
 }
 
 const mutations = {
-  [mutationTypes.registerStart](state) {
+  [mutationTypes.registerStart](state) { 
     state.isSubmitting = true;
     state.validationErrors = null;
   },

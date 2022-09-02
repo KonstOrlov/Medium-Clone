@@ -13,14 +13,12 @@
 </template >
 
 <script >
-// import McvFeed from "@/components/Feed.vue";
-
 import McvFeed from "@/components/Feed.vue";
+
 export default {
   name: 'McvGlobalFeed',
   components: {
     McvFeed
-    // McvFeed,
   },
   data() {
      return {
