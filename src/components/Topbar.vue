@@ -1,12 +1,12 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <router-link :to="{name: 'home'}" class="navbar-brand" >
+      <router-link :to="{name: 'globalFeed '}" class="navbar-brand" >
         MediumClone
       </router-link>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
-          <router-link :to="{name: 'home'}" class="nav-link" exact active-class="active">
+          <router-link :to="{name: 'globalFeed'}" class="nav-link" exact active-class="active">
             Home
           </router-link>
         </li>
