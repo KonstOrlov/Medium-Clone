@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-light">
     <div class="container">
-      <router-link :to="{name: 'globalFeed '}" class="navbar-brand" >
+      <router-link :to="{name: 'globalFeed'}" class="navbar-brand" >
         MediumClone
       </router-link>
       <ul class="nav navbar-nav pull-xs-right">
