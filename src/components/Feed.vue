@@ -1,7 +1,7 @@
 <template >
   <div>
-    <div v-if = "isLoading"></div>
-    <div v-if="error">Something bad happened</div>
+    <mcv-loading v-if="isLoading"/>
+    <mcv-error-message v-if="error"/>
 
     <div v-if="feed">
       <div class="article-preview"
@@ -11,7 +11,7 @@
           <router-link
               :to="{name: 'userProfile', params: {slug: article.author.username}}"
           >
-            <img :src="article.author.image" alt=""/>
+            <img :src="article.author.image" alt="Image profile"/>
           </router-link>
           <div class="info">
             <router-link
@@ -54,12 +54,16 @@ import {stringify, parseUrl} from 'query-string';
 
 import {actionTypes} from "@/store/Modules/feed";
 import McvPagination from "@/components/Pagination";
+import McvLoading from "@/components/Loading";
+import McvErrorMessage from "@/components/ErrorMessage";
 import {limit} from "@/helpers/vars";
 
 export default {
   name: 'McvFeed',
   components: {
-    McvPagination
+    McvPagination,
+    McvLoading,
+    McvErrorMessage
   },
   props: {
     apiUrl: {
