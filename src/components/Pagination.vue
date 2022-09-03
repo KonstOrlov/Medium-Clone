@@ -1,13 +1,12 @@
 <template >
   <ul class="pagination">
     <li
-        class="page-item"
         v-for="page in pages"
         :key="page"
-        :class="{active: currentPage === page}">
-      <router-link
-          to="{path: url, query: {page: page}"
-          class="page-link">
+        class="page-item"
+        :class="{active: currentPage === page}"
+    >
+      <router-link :to="{path: url, query: {page: page}}" class="page-link">
         {{page}}
       </router-link>
     </li>

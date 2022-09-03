@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import auth from "@/store/Modules/auth.js";
-import feed from "@/store/Modules/feed.js";
+import auth from "@/store/Modules/auth";
+import feed from "@/store/Modules/feed";
 
 Vue.use(Vuex)
 

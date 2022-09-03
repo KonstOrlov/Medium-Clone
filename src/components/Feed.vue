@@ -1,7 +1,6 @@
 <template >
   <div>
     <div v-if = "isLoading"></div>
-
     <div v-if="error">Something bad happened</div>
 
     <div v-if="feed">
@@ -10,30 +9,29 @@
            :key="index">
         <div class="article-meta">
           <router-link
-              to="{
-                name: 'userProfile',
-                params: {slug: article.author.username}}">
+              :to="{name: 'userProfile', params: {slug: article.author.username}}"
+          >
             <img :src="article.author.image" alt=""/>
           </router-link>
           <div class="info">
             <router-link
-                to="{
-                  name: 'userProfile',
-                  params: {slug: article.author.username}}"
-                class="author">
+                :to="{
+                name: 'userProfile',
+                params: {slug: article.author.username}
+              }"
+            >
               {{article.author.username}}
             </router-link>
-            <span class="date">{{article.createdAt}}</span>
+            <span class="date">{{ article.createdAt }}</span>
           </div>
            <div class="pull-xs-right">
              add to favorites
            </div>
         </div>
         <router-link
-            to="{
-              name: 'article',
-              params: {slug:{article.slug}}"
-            class="preview-link">
+            :to="{name: 'article', params: {slug: article.slug}}"
+            class="preview-link"
+        >
           <h1>{{article.title}}</h1>
           <p>{{article.description}}</p>
           <span>Read more...</span>
@@ -41,10 +39,10 @@
         </router-link>
       </div>
       <mcv-pagination
-          :total="total"
+          :total="feed.articlesCount"
           :limit="limit"
+          :url="baseUrl"
           :current-page="currentPage"
-          :url="url"
       />
     </div>
   </div>
@@ -52,8 +50,11 @@
 
 <script >
 import {mapState} from "vuex";
-import {actionTypes} from "@/store/Modules/feed.js";
-import McvPagination from "@/components/Pagination"
+import {stringify, parseUrl} from 'query-string';
+
+import {actionTypes} from "@/store/Modules/feed";
+import McvPagination from "@/components/Pagination";
+import {limit} from "@/helpers/vars";
 
 export default {
   name: 'McvFeed',
@@ -68,10 +69,7 @@ export default {
   },
   data() {
     return {
-      total: 500,
-      limit: 10,
-      currentPage: 5,
-      url: '/tags/dragons'
+      url: '/'
     }
   },
   computed: {
@@ -79,10 +77,39 @@ export default {
       isLoading: state => state.feed.isLoading,
       feed: state => state.feed.data,
       error: state => state.feed.error
-    })
+    }),
+    limit() {
+      return limit;
+    },
+    currentPage() {
+      return Number(this.$route.query.page || '1');
+    },
+    baseUrl() {
+      return this.$route.path
+    },
+    offset() {
+      return this.currentPage * limit - limit;
+    }
+  },
+  watch:{
+    currentPage() {
+      this.fetchFeed();
+    }
   },
   mounted() {
-    this.$store.dispatch(actionTypes.getFeed, {apiUrl: this.apiUrl});
+    this.fetchFeed();
+  },
+  methods: {
+    fetchFeed() {
+      const parsedUrl = parseUrl(this.apiUrl)
+      const stringifiedParams = stringify({
+        limit,
+        offset: this.offset,
+        ...parsedUrl.query
+      })
+      const apiUrlWithParams = `${parsedUrl.url}?${stringifiedParams}`
+      this.$store.dispatch(actionTypes.getFeed, {apiUrl: apiUrlWithParams})
+    }
   }
 }
 </script >
