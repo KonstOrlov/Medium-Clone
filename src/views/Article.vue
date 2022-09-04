@@ -13,12 +13,12 @@
             </router-link>
             <span class="date">{{article.createdAt}}</span>
           </div>
-          <span>
+          <span v-if="isAuthor">
             <router-link :to="{name: 'editArticle', params: {slug: article.slug}}" class="btn btn-outline-secondary btn-sm">
               <i class="ion-edit"></i>
               Edit Article
             </router-link>
-            <button class="btn btn-outline-danger btn-sm">
+            <button class="btn btn-outline-danger btn-sm" @click="deleteArticle">
               <i class="ion-trash-a" />
               Delete Article
             </button >
@@ -44,8 +44,9 @@
 </template >
 
 <script >
-import {actionTypes} from "@/store/Modules/article.js";
-import {mapState} from "vuex";
+import {actionTypes as articleActionTypes} from "@/store/Modules/article.js";
+import {getterTypes as authGetterTypes} from "@/store/Modules/auth.js";
+import {mapState, mapGetters} from "vuex";
 import McvErrorMessage from "@/components/ErrorMessage.vue";
 import McvLoading from "@/components/Loading.vue";
 
@@ -57,14 +58,30 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch(actionTypes.getArticle, {slug: this.$route.params.slug});
+    this.$store.dispatch(articleActionTypes.getArticle, {slug: this.$route.params.slug});
   },
   computed:{
     ...mapState({
       isLoading: state => state.article.isLoading,
       error: state => state.article.error,
       article: state => state.article.data
-    })
+    }),
+    ...mapGetters({
+      currentUser: authGetterTypes.currentUser
+    }),
+    isAuthor() {
+      if(!this.currentUser || !this.article) {
+        return false;
+      }
+      return this.currentUser.username === this.article.author.username;
+    }
+  },
+  methods: {
+    deleteArticle() {
+      this.$store.dispatch(articleActionTypes.deleteArticle, {
+        slug: this.$route.params.slug
+      }).then(() => this.$router.push({name: 'globalFeed'}))
+    }
   }
 }
 </script >
