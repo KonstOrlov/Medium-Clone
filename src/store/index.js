@@ -9,6 +9,7 @@ import createArticle from "@/store/Modules/createArticle.js";
 import editArticle from "@/store/Modules/editArticle.js";
 import settings from "@/store/Modules/settings.js";
 import addToFavorites from "@/store/Modules/addToFavorites.js";
+import userProfile from "@/store/Modules/userProfile.js";
 
 Vue.use(Vuex)
 
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     createArticle,
     editArticle,
     settings,
-    addToFavorites
+    addToFavorites,
+    userProfile
   }
 })
