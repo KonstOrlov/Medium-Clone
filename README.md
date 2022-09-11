@@ -1,4 +1,4 @@
-# mediumclone_vue
+# Medium Clone project
 
 ## Project setup
 ```
