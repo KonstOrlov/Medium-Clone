@@ -1,24 +1,9 @@
 # Medium Clone project
 
-## Project setup
-```
-npm install
-```
+## 💻 Установка зависимостей
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+##### `npm install` – установить зависимости проекта
 
-### Compiles and minifies for production
-```
-npm run build
-```
+##### `npm start` – запуск devServer на http://localhost:3000/
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+##### `npm build` – production сборка проекта
